@@ -4,10 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Brand design tokens (Tailwind v4 @theme → generates utility classes) ── */
+@theme {
+  --color-brand-blue: #2563EB;
+  --color-brand-blue-hover: #1D4FCC;
+  --color-brand-black: #111418;
+  --color-surface-dark: #0A1A2E;
+  --color-text-body: #1F2937;
+  --color-border-default: #E5E7EB;
+  --font-family-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --radius-button: 6px;
+}
+
+/* ── shadcn token aliases (Tailwind v4 @theme inline) ── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -48,6 +61,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ── shadcn light theme ── */
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -81,6 +95,17 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Brand CSS custom properties (for style={{ }} usage in components) ── */
+  --brand-blue: #2563EB;
+  --brand-blue-hover: #1D4FCC;
+  --brand-black: #111418;
+  --brand-white: #FFFFFF;
+  --surface-dark: #0A1A2E;
+  --text-primary: #111418;
+  --text-body: #1F2937;
+  --border-default: #E5E7EB;
+  --radius-button: 6px;
 }
 
 .dark {
@@ -123,8 +148,20 @@
   }
   body {
     @apply bg-background text-foreground;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
   }
   html {
     @apply font-sans;
   }
+}
+
+/* ── Floor plan availability animation ── */
+@keyframes unit-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.unit-available {
+  animation: unit-pulse 3s ease-in-out infinite;
 }
