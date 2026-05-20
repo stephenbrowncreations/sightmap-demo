@@ -9,11 +9,11 @@
   --color-brand-blue: #2563EB;
   --color-brand-blue-hover: #1D4FCC;
   --color-brand-black: #111418;
+  --color-brand-white: #FFFFFF;
   --color-surface-dark: #0A1A2E;
   --color-text-body: #1F2937;
   --color-border-default: #E5E7EB;
   --font-family-sans: 'Inter', -apple-system, system-ui, sans-serif;
-  --radius-button: 6px;
 }
 
 /* ── shadcn token aliases (Tailwind v4 @theme inline) ── */
@@ -148,8 +148,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    color: var(--text-primary);
-    -webkit-font-smoothing: antialiased;
   }
   html {
     @apply font-sans;
