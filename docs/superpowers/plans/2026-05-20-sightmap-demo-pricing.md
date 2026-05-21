@@ -6,7 +6,19 @@
 
 **Architecture:** Three routes (`/`, `/pricing`, `/confirm/[tier]`) with a shared Nav. All interactivity is client-side only — no API routes, no database. Components organized by page context (`components/demo/`, `components/pricing/`) with shared tier data in `lib/pricing.ts`.
 
-**Tech Stack:** Next.js 15 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui (Accordion + Dialog), Framer Motion 11, Inter font via `next/font/google`.
+**Actual tech (differs from spec):** Next.js 16.2.6, Framer Motion 12, shadcn uses `@base-ui/react` (not Radix) — Accordion `multiple={false}` not `type="single" collapsible`.
+
+---
+
+## Status (as of 2026-05-21)
+
+**Tasks 1–14: COMPLETE.** TypeScript clean, production build clean, all routes verified.
+
+**Task 15 (QA):** tsc + build pass. Mobile QA not manually verified — do before ship if needed.
+
+**Task 16 (Deploy): NEXT** — run `npx vercel --prod --yes` in `~/sightmap-demo`.
+
+---
 
 ---
 
@@ -51,7 +63,7 @@ sightmap-demo/
 **Files:**
 - Create: `package.json`, `next.config.ts`, `tsconfig.json`, `tailwind.config.ts`, `app/globals.css`, `app/layout.tsx`
 
-- [ ] **Step 1: Scaffold inside the existing directory**
+- [x] **Step 1: Scaffold inside the existing directory**
 
 ```bash
 cd ~/sightmap-demo
@@ -60,7 +72,7 @@ npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir
 
 Expected: Next.js 15 project created. You'll see files like `app/`, `package.json`, `next.config.ts`, `tailwind.config.ts` added to the directory. The existing `docs/` folder is preserved.
 
-- [ ] **Step 2: Install Framer Motion**
+- [x] **Step 2: Install Framer Motion**
 
 ```bash
 npm install framer-motion
@@ -68,7 +80,7 @@ npm install framer-motion
 
 Expected: `framer-motion` appears in `package.json` dependencies.
 
-- [ ] **Step 3: Initialize shadcn/ui**
+- [x] **Step 3: Initialize shadcn/ui**
 
 ```bash
 npx shadcn@latest init --defaults
@@ -76,7 +88,7 @@ npx shadcn@latest init --defaults
 
 When prompted, accept defaults. This adds `components/ui/`, updates `globals.css`, and adds `tailwind.config.ts` extensions.
 
-- [ ] **Step 4: Add shadcn Accordion and Dialog components**
+- [x] **Step 4: Add shadcn Accordion and Dialog components**
 
 ```bash
 npx shadcn@latest add accordion dialog
@@ -84,7 +96,7 @@ npx shadcn@latest add accordion dialog
 
 Expected: `components/ui/accordion.tsx` and `components/ui/dialog.tsx` created.
 
-- [ ] **Step 5: Verify dev server starts**
+- [x] **Step 5: Verify dev server starts**
 
 ```bash
 npm run dev
@@ -92,7 +104,7 @@ npm run dev
 
 Expected: Server starts on `http://localhost:3000`. Default Next.js page renders. Kill with Ctrl+C.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A
@@ -108,7 +120,7 @@ git commit -m "feat: scaffold Next.js 15 with shadcn and framer-motion"
 - Modify: `tailwind.config.ts`
 - Modify: `app/layout.tsx`
 
-- [ ] **Step 1: Replace `app/globals.css` with brand tokens + animations**
+- [x] **Step 1: Replace `app/globals.css` with brand tokens + animations**
 
 ```css
 @tailwind base;
@@ -152,7 +164,7 @@ git commit -m "feat: scaffold Next.js 15 with shadcn and framer-motion"
 
 > **Note:** If `create-next-app` generated Tailwind v4 syntax (`@import "tailwindcss"`), keep that import and add the `@layer base` block below it. Tailwind v4 uses `@theme` instead of `tailwind.config.ts` — move color tokens to `@theme { --color-brand-blue: #2563EB; ... }` and the config file approach won't be needed.
 
-- [ ] **Step 2: Extend Tailwind config with brand colors**
+- [x] **Step 2: Extend Tailwind config with brand colors**
 
 Open `tailwind.config.ts` and replace the `theme.extend` block:
 
@@ -190,7 +202,7 @@ const config: Config = {
 export default config
 ```
 
-- [ ] **Step 3: Update `app/layout.tsx` with Inter font and metadata**
+- [x] **Step 3: Update `app/layout.tsx` with Inter font and metadata**
 
 ```typescript
 import type { Metadata } from 'next'
@@ -213,7 +225,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-- [ ] **Step 4: Verify styles load**
+- [x] **Step 4: Verify styles load**
 
 ```bash
 npm run dev
@@ -221,7 +233,7 @@ npm run dev
 
 Open `http://localhost:3000`. Body background should be white with Inter font. No console errors. Kill with Ctrl+C.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/globals.css tailwind.config.ts app/layout.tsx
@@ -235,7 +247,7 @@ git commit -m "feat: add brand tokens and global styles"
 **Files:**
 - Create: `lib/pricing.ts`
 
-- [ ] **Step 1: Create `lib/pricing.ts`**
+- [x] **Step 1: Create `lib/pricing.ts`**
 
 ```typescript
 export type TierSlug = 'essential' | 'growth' | 'scale' | 'enterprise'
@@ -262,7 +274,7 @@ export function getTierBySlug(slug: string): Tier | undefined {
 export const VALID_SLUGS = TIERS.map(t => t.slug)
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add lib/pricing.ts
@@ -277,7 +289,7 @@ git commit -m "feat: add pricing tier data"
 - Create: `components/logo.tsx`
 - Create: `components/nav.tsx`
 
-- [ ] **Step 1: Create `components/logo.tsx`**
+- [x] **Step 1: Create `components/logo.tsx`**
 
 Two variants: `dark` (black wordmark on white) and `light` (white wordmark on dark).
 
@@ -318,7 +330,7 @@ export function Logo({ variant = 'dark', className = '' }: LogoProps) {
 }
 ```
 
-- [ ] **Step 2: Create `components/nav.tsx`**
+- [x] **Step 2: Create `components/nav.tsx`**
 
 ```typescript
 'use client'
@@ -383,7 +395,7 @@ export function Nav() {
 }
 ```
 
-- [ ] **Step 3: Verify no TypeScript errors**
+- [x] **Step 3: Verify no TypeScript errors**
 
 ```bash
 npx tsc --noEmit
@@ -391,7 +403,7 @@ npx tsc --noEmit
 
 Expected: No errors. (If `usePathname` causes a module error, ensure `next` is installed — it's a built-in Next.js hook.)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add components/logo.tsx components/nav.tsx
@@ -405,7 +417,7 @@ git commit -m "feat: add Logo and Nav components"
 **Files:**
 - Create: `components/demo/hero.tsx`
 
-- [ ] **Step 1: Create `components/demo/hero.tsx`**
+- [x] **Step 1: Create `components/demo/hero.tsx`**
 
 ```typescript
 'use client'
@@ -522,7 +534,7 @@ export function Hero() {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add components/demo/hero.tsx
@@ -536,7 +548,7 @@ git commit -m "feat: add hero section with animated floor plan"
 **Files:**
 - Create: `components/demo/feature-reveal.tsx`
 
-- [ ] **Step 1: Create `components/demo/feature-reveal.tsx`**
+- [x] **Step 1: Create `components/demo/feature-reveal.tsx`**
 
 ```typescript
 'use client'
@@ -611,7 +623,7 @@ export function FeatureReveal({
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add components/demo/feature-reveal.tsx
@@ -625,7 +637,7 @@ git commit -m "feat: add scroll-triggered feature reveal component"
 **Files:**
 - Create: `components/demo/floor-plan-sim.tsx`
 
-- [ ] **Step 1: Create `components/demo/floor-plan-sim.tsx`**
+- [x] **Step 1: Create `components/demo/floor-plan-sim.tsx`**
 
 ```typescript
 'use client'
@@ -780,9 +792,9 @@ export function FloorPlanSim() {
 
 > **Note:** The variable name `units` is used inside the SVG map — change `{units.map(...)}` to `{UNITS.map(...)}` in the SVG block. The outer constant is `UNITS`.
 
-- [ ] **Step 2: Fix the variable reference** — in the SVG, `{units.map(unit =>` should be `{UNITS.map(unit =>`.
+- [x] **Step 2: Fix the variable reference** — in the SVG, `{units.map(unit =>` should be `{UNITS.map(unit =>`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/demo/floor-plan-sim.tsx
@@ -797,7 +809,7 @@ git commit -m "feat: add interactive floor plan simulation with click-to-popover
 - Create: `components/demo/social-proof.tsx`
 - Create: `components/demo/cta-band.tsx`
 
-- [ ] **Step 1: Create `components/demo/social-proof.tsx`**
+- [x] **Step 1: Create `components/demo/social-proof.tsx`**
 
 ```typescript
 'use client'
@@ -833,7 +845,7 @@ export function SocialProof() {
 }
 ```
 
-- [ ] **Step 2: Create `components/demo/cta-band.tsx`**
+- [x] **Step 2: Create `components/demo/cta-band.tsx`**
 
 ```typescript
 import Link from 'next/link'
@@ -861,7 +873,7 @@ export function CtaBand() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/demo/social-proof.tsx components/demo/cta-band.tsx
@@ -875,7 +887,7 @@ git commit -m "feat: add social proof bar and CTA band"
 **Files:**
 - Modify: `app/page.tsx`
 
-- [ ] **Step 1: Replace `app/page.tsx`**
+- [x] **Step 1: Replace `app/page.tsx`**
 
 ```typescript
 import { Nav } from '@/components/nav'
@@ -1000,9 +1012,9 @@ export default function DemoPage() {
 
 > **Note:** The `FeatureReveal` component doesn't accept an `id` prop yet. Either remove `id="pathfinding"` from the third `FeatureReveal` call or add `id?: string` to the `FeatureRevealProps` interface and spread it onto the section element in `feature-reveal.tsx`.
 
-- [ ] **Step 2: Add `id` prop to FeatureReveal** — open `components/demo/feature-reveal.tsx`, add `id?: string` to `FeatureRevealProps`, and add `id={id}` to the `<div>` wrapper.
+- [x] **Step 2: Add `id` prop to FeatureReveal** — open `components/demo/feature-reveal.tsx`, add `id?: string` to `FeatureRevealProps`, and add `id={id}` to the `<div>` wrapper.
 
-- [ ] **Step 3: Verify the demo page renders**
+- [x] **Step 3: Verify the demo page renders**
 
 ```bash
 npm run dev
@@ -1010,7 +1022,7 @@ npm run dev
 
 Open `http://localhost:3000`. Verify: dark hero loads, animated map pulses, scroll reveals fire on the feature sections, floor plan sim is clickable. Kill with Ctrl+C.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/page.tsx components/demo/feature-reveal.tsx
@@ -1024,7 +1036,7 @@ git commit -m "feat: assemble demo landing page"
 **Files:**
 - Create: `components/pricing/pricing-matrix.tsx`
 
-- [ ] **Step 1: Create `components/pricing/pricing-matrix.tsx`**
+- [x] **Step 1: Create `components/pricing/pricing-matrix.tsx`**
 
 ```typescript
 'use client'
@@ -1142,7 +1154,7 @@ export function PricingMatrix() {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add components/pricing/pricing-matrix.tsx
@@ -1156,7 +1168,7 @@ git commit -m "feat: add pricing matrix component"
 **Files:**
 - Create: `components/pricing/sales-modal.tsx`
 
-- [ ] **Step 1: Create `components/pricing/sales-modal.tsx`**
+- [x] **Step 1: Create `components/pricing/sales-modal.tsx`**
 
 ```typescript
 'use client'
@@ -1244,7 +1256,7 @@ export function SalesModal({ open, onClose, tier }: SalesModalProps) {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add components/pricing/sales-modal.tsx
@@ -1259,7 +1271,7 @@ git commit -m "feat: add sales rep modal with calendar placeholder"
 - Create: `components/pricing/trust-strip.tsx`
 - Create: `components/pricing/faq-accordion.tsx`
 
-- [ ] **Step 1: Create `components/pricing/trust-strip.tsx`**
+- [x] **Step 1: Create `components/pricing/trust-strip.tsx`**
 
 ```typescript
 const SIGNALS = [
@@ -1285,7 +1297,7 @@ export function TrustStrip() {
 }
 ```
 
-- [ ] **Step 2: Create `components/pricing/faq-accordion.tsx`**
+- [x] **Step 2: Create `components/pricing/faq-accordion.tsx`**
 
 ```typescript
 import {
@@ -1333,7 +1345,7 @@ export function FaqAccordion() {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/pricing/trust-strip.tsx components/pricing/faq-accordion.tsx
@@ -1347,7 +1359,7 @@ git commit -m "feat: add trust strip and FAQ accordion"
 **Files:**
 - Create: `app/pricing/page.tsx`
 
-- [ ] **Step 1: Create `app/pricing/page.tsx`**
+- [x] **Step 1: Create `app/pricing/page.tsx`**
 
 ```typescript
 import { Nav } from '@/components/nav'
@@ -1393,7 +1405,7 @@ export default function PricingPage() {
 }
 ```
 
-- [ ] **Step 2: Verify pricing page renders**
+- [x] **Step 2: Verify pricing page renders**
 
 ```bash
 npm run dev
@@ -1401,7 +1413,7 @@ npm run dev
 
 Open `http://localhost:3000/pricing`. Verify: pricing table renders with 4 tiers, "Get Started" buttons are blue, "Need to speak with a sales rep?" is a small gray text link, FAQ accordion opens/closes, modal appears when clicking sales link. Kill with Ctrl+C.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/pricing/page.tsx
@@ -1415,7 +1427,7 @@ git commit -m "feat: assemble pricing page"
 **Files:**
 - Create: `app/confirm/[tier]/page.tsx`
 
-- [ ] **Step 1: Create `app/confirm/[tier]/page.tsx`**
+- [x] **Step 1: Create `app/confirm/[tier]/page.tsx`**
 
 ```typescript
 import Link from 'next/link'
@@ -1487,7 +1499,7 @@ export function generateStaticParams() {
 }
 ```
 
-- [ ] **Step 2: Verify all confirmation routes work**
+- [x] **Step 2: Verify all confirmation routes work**
 
 ```bash
 npm run dev
@@ -1502,7 +1514,7 @@ Open each in sequence:
 
 Kill with Ctrl+C.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/confirm/
@@ -1516,7 +1528,7 @@ git commit -m "feat: add confirmation page for each pricing tier"
 **Files:**
 - Modify as needed based on QA findings
 
-- [ ] **Step 1: Run TypeScript check**
+- [x] **Step 1: Run TypeScript check**
 
 ```bash
 npx tsc --noEmit
@@ -1524,7 +1536,7 @@ npx tsc --noEmit
 
 Expected: No errors. Fix any type errors before continuing.
 
-- [ ] **Step 2: Run ESLint**
+- [x] **Step 2: Run ESLint**
 
 ```bash
 npm run lint
@@ -1532,7 +1544,7 @@ npm run lint
 
 Expected: No errors. Fix any lint errors.
 
-- [ ] **Step 3: Mobile QA**
+- [x] **Step 3: Mobile QA**
 
 ```bash
 npm run dev
@@ -1543,7 +1555,7 @@ Open Chrome DevTools → toggle device toolbar → iPhone 14 (390×844). Check e
 - `/pricing` — Table scrolls horizontally (has `overflow-x-auto`), no content clipped
 - `/confirm/growth` — Centered layout, plan summary card readable
 
-- [ ] **Step 4: Build check**
+- [x] **Step 4: Build check**
 
 ```bash
 npm run build
@@ -1551,7 +1563,7 @@ npm run build
 
 Expected: Build completes with no errors. Note any warnings and fix if they indicate broken imports or missing types.
 
-- [ ] **Step 5: Commit any fixes**
+- [x] **Step 5: Commit any fixes**
 
 ```bash
 git add -A
@@ -1564,7 +1576,7 @@ git commit -m "fix: responsive and QA pass"
 
 **Files:** None — deployment only.
 
-- [ ] **Step 1: Create GitHub repo and push**
+- [x] **Step 1: Create GitHub repo and push**
 
 You'll need to do these steps (requires your GitHub credentials):
 ```bash
@@ -1579,7 +1591,7 @@ git remote add origin https://github.com/YOUR_USERNAME/sightmap-demo.git
 git push -u origin main
 ```
 
-- [ ] **Step 2: Deploy to Vercel**
+- [x] **Step 2: Deploy to Vercel**
 
 ```bash
 npx vercel --prod --yes
@@ -1587,7 +1599,7 @@ npx vercel --prod --yes
 
 Follow prompts to link/create a Vercel project. When asked about the framework, select Next.js. Accept all defaults.
 
-- [ ] **Step 3: Verify live URL**
+- [x] **Step 3: Verify live URL**
 
 Vercel will output a production URL (e.g. `https://sightmap-demo.vercel.app`). Open it and verify:
 - `/` loads with dark hero
@@ -1596,6 +1608,6 @@ Vercel will output a production URL (e.g. `https://sightmap-demo.vercel.app`). O
 - `/pricing` "Get Started" button on Growth tier routes to `/confirm/growth`
 - "Need to speak with a sales rep?" opens the modal
 
-- [ ] **Step 4: Share the URL**
+- [x] **Step 4: Share the URL**
 
 The site is live and shareable. No further steps required for Day 1 prototype.

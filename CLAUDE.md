@@ -120,7 +120,29 @@ npm run lint     # ESLint
 npx tsc --noEmit # TypeScript check
 ```
 
-## Implementation Plan
+## Build Status
+
+**As of 2026-05-21 — Tasks 1–14 complete, Task 16 (deploy) is next.**
+
+All routes build and render:
+- `/` — dark hero, animated floor plan, feature reveals, interactive floor plan sim, CTA band
+- `/pricing` — 4-column pricing matrix, trust strip, FAQ accordion, sales modal
+- `/confirm/[tier]` — plan summary confirmation (essential / growth / scale / enterprise → 200; invalid → 404)
+
+TypeScript clean (`npx tsc --noEmit`). Production build clean (`npm run build`). Dev server: `npm run dev`.
+
+## Next Task
+
+**Task 16: Deploy to Vercel**
+
+```bash
+npx vercel --prod --yes
+```
+
+Verify live URL:
+- `/` loads with dark hero
+- `/pricing` loads pricing matrix, "Get Started" routes to `/confirm/[tier]`
+- "Need to speak with a sales rep?" opens modal
 
 Full plan: `docs/superpowers/plans/2026-05-20-sightmap-demo-pricing.md`
 Full spec: `docs/superpowers/specs/2026-05-20-sightmap-demo-pricing-design.md`
