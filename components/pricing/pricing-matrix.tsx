@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { TIERS, type Tier } from '@/lib/pricing'
 import { SalesModal } from './sales-modal'
 
 export function PricingMatrix() {
+  const router = useRouter()
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedTier, setSelectedTier] = useState<Tier | null>(null)
 
   function handleGetStarted(tier: Tier) {
-    window.location.href = `/confirm/${tier.slug}`
+    router.push(`/confirm/${tier.slug}`)
   }
 
   function handleSalesClick(tier: Tier) {
