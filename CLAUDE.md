@@ -129,7 +129,7 @@ All routes build and render:
 - `/pricing` — 4-column pricing matrix, trust strip, FAQ accordion, sales modal
 - `/confirm/[tier]` — plan summary confirmation (essential / growth / scale / enterprise → 200; invalid → 404)
 
-TypeScript clean (`npx tsc --noEmit`). Production build clean (`npm run build`). Dev server: `npm run dev`.
+TypeScript clean, lint clean, production build clean. Dev server: `npm run dev`.
 
 ## Next Task
 
