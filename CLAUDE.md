@@ -120,29 +120,18 @@ npm run lint     # ESLint
 npx tsc --noEmit # TypeScript check
 ```
 
-## Build Status
+## Status — SHIPPED ✓
 
-**As of 2026-05-21 — Tasks 1–14 complete, Task 16 (deploy) is next.**
+**As of 2026-05-21 — All tasks complete. Prototype is live.**
 
-All routes build and render:
+**Live URL:** https://sightmap-demo-blush.vercel.app
+
+All routes:
 - `/` — dark hero, animated floor plan, feature reveals, interactive floor plan sim, CTA band
 - `/pricing` — 4-column pricing matrix, trust strip, FAQ accordion, sales modal
-- `/confirm/[tier]` — plan summary confirmation (essential / growth / scale / enterprise → 200; invalid → 404)
+- `/confirm/[tier]` — plan summary (essential / growth / scale / enterprise → 200; invalid → 404)
 
 TypeScript clean, lint clean, production build clean. Dev server: `npm run dev`.
-
-## Next Task
-
-**Task 16: Deploy to Vercel**
-
-```bash
-npx vercel --prod --yes
-```
-
-Verify live URL:
-- `/` loads with dark hero
-- `/pricing` loads pricing matrix, "Get Started" routes to `/confirm/[tier]`
-- "Need to speak with a sales rep?" opens modal
 
 Full plan: `docs/superpowers/plans/2026-05-20-sightmap-demo-pricing.md`
 Full spec: `docs/superpowers/specs/2026-05-20-sightmap-demo-pricing-design.md`
